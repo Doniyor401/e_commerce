@@ -95,3 +95,6 @@ class Order(models.Model):
     payment_method = models.CharField(_("Payment Method"), max_length=60, null=True, blank=True)
     delivery_tariff = models.ForeignKey(DeliveryTariff, on_delete=models.SET_NULL, null=True, blank=True,
                                         related_name="orders")
+
+    def __str__(self):
+        return f"User Id: {self.user.id}|Total Price: {self.total_price}"
