@@ -3,7 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from common.models import Media
 from products.utitls import validate_rating
 from mptt.models import MPTTModel, TreeForeignKey
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
+
 
 # Create your models here.
 
@@ -23,13 +24,14 @@ class Category(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['name']
 
+
 class Product(models.Model):
     name = models.CharField(_("name"), max_length=255)
     price = models.FloatField(_("price")) # 2.03
     short_description = models.TextField(_("short description"))
     description = models.TextField(_("description"))
     quanttity = models.IntegerField(_("quantity"))
-    instructions = RichTextField()
+    instructions = CKEditor5Field(config_name="extends")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
     in_stock = models.BooleanField(_("in stock"), default=True)
     brand = models.CharField(_("brand"), max_length=255)
